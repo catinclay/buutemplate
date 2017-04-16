@@ -1,7 +1,6 @@
-function GameEngine(game) {
+function GameEngine(game, fps) {
 	this.game = game;
-	this.theCanvas = document.getElementById("mainCanvas")
-	;
+	this.theCanvas = document.getElementById("mainCanvas");
 	console.log(this.theCanvas.getBoundingClientRect());
 	if(screen.width < 400){
 		this.theCanvas.width *=2;
@@ -24,12 +23,13 @@ function GameEngine(game) {
 	this.theCanvas.style.display = "block";
 	this.addListeners();
 	var loadPromises = [];
-	Promise.all(loadPromises).then(this.start());
+	Promise.all(loadPromises).then(this.start(fps));
 }
 
 
-GameEngine.prototype.start = function() {
-	this.timer = setInterval(this.onTimerTick.bind(this), 1000/30);
+GameEngine.prototype.start = function(fps) {
+	this.game.init(this.theCanvas.width, this.theCanvas.height);
+	this.timer = setInterval(this.onTimerTick.bind(this), 1000/fps);
 }
 
 GameEngine.prototype.loadImage = function(image, src) {
