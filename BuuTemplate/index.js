@@ -127,8 +127,14 @@ function touchUpListener(evt){
 	inputUpListener(touchX, touchY);
 }
 
+function loadImage(image, src) {
+	image.src = src;
+	return new Promise(function(resolve, reject){
+		image.onload = resolve;
+		image.onerror = reject;
+	});
+}
 
+var loadPromises = [];
 
-
-
-init();
+Promise.all(loadPromises).then(init());
