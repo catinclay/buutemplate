@@ -1,6 +1,6 @@
 function GameEngine() {}
 
-GameEngine.prototype.init = function(game, imageManager, fps) {
+GameEngine.prototype.init = function(game, imageManager, soundManager, fps) {
 	this.game = game;
 	this.theCanvas = document.getElementById("mainCanvas");
 	console.log(this.theCanvas.getBoundingClientRect());
@@ -13,12 +13,7 @@ GameEngine.prototype.init = function(game, imageManager, fps) {
 	this.addListeners();
 	this.fps = fps;
 	this.sounds = {};
-	this.game.init(this.theCanvas.width, this.theCanvas.height, imageManager);
-}
-
-
-GameEngine.prototype.registerSound = function(sound) {
-	this.sounds[sound.name] = new Audio(sound.src);
+	this.game.init(this.theCanvas.width, this.theCanvas.height, imageManager, soundManager);
 }
 
 
