@@ -1,6 +1,6 @@
 function GameEngine() {}
 
-GameEngine.prototype.init = function(game, fps) {
+GameEngine.prototype.init = function(game, imageManager, fps) {
 	this.game = game;
 	this.theCanvas = document.getElementById("mainCanvas");
 	console.log(this.theCanvas.getBoundingClientRect());
@@ -13,33 +13,28 @@ GameEngine.prototype.init = function(game, fps) {
 	this.addListeners();
 	this.fps = fps;
 	this.sounds = {};
-	this.images = {};
-	this.game.init(this.theCanvas.width, this.theCanvas.height);
+	this.game.init(this.theCanvas.width, this.theCanvas.height, imageManager);
 }
+
 
 GameEngine.prototype.registerSound = function(sound) {
 	this.sounds[sound.name] = new Audio(sound.src);
 }
 
-GameEngine.prototype.registerImage = function(image) {
-	this.images[image.name] = new Image;
-	var thisImage = this.images[image.name];
-	thisImage.src = image.src;
-	return new Promise(function(resolve, reject){
-		thisImage.onload = resolve;
-		thisImage.onerror = reject;
-	});
-}
+
 
 GameEngine.prototype.start = function() {
 	this.timer = setInterval(this.onTimerTick.bind(this), 1000/this.fps);
 }
 
-
-
 GameEngine.prototype.drawScreen = function() {
 	this.context.fillStyle = "#FFFFFF";
 	this.context.fillRect(0, 0, this.theCanvas.width, this.theCanvas.height);
+	var drawables = this.game.getDrawables();
+	for (var i in drawables) {
+		var d = drawables[i];
+		d.drawToContext(this.context);
+	}
 }
 
 
