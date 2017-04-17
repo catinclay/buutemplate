@@ -1,4 +1,6 @@
-function GameEngine(game, fps) {
+function GameEngine() {}
+
+GameEngine.prototype.init = function(game, fps) {
 	this.game = game;
 	this.theCanvas = document.getElementById("mainCanvas");
 	console.log(this.theCanvas.getBoundingClientRect());
@@ -7,38 +9,33 @@ function GameEngine(game, fps) {
 		this.theCanvas.height *=2;
 	}
 	this.context = this.theCanvas.getContext("2d");
-	this.failedSound = new Audio('sounds/faildSound.mp3');
-	this.comboSounds = [new Audio('sounds/combo1.mp3'),
-					new Audio('sounds/combo2.mp3'),
-					new Audio('sounds/combo3.mp3'),
-					new Audio('sounds/combo4.mp3'),
-					new Audio('sounds/combo5.mp3'),
-					new Audio('sounds/combo6.mp3'),
-					new Audio('sounds/combo7.mp3'),
-					new Audio('sounds/combo8.mp3')];
-	this.failedSound.volume = .2;
-	for(se in this.comboSounds){
-		se.volume = 1;
-	}
 	this.theCanvas.style.display = "block";
 	this.addListeners();
-	var loadPromises = [];
-	Promise.all(loadPromises).then(this.start(fps));
-}
-
-
-GameEngine.prototype.start = function(fps) {
+	this.fps = fps;
+	this.sounds = {};
+	this.images = {};
 	this.game.init(this.theCanvas.width, this.theCanvas.height);
-	this.timer = setInterval(this.onTimerTick.bind(this), 1000/fps);
 }
 
-GameEngine.prototype.loadImage = function(image, src) {
-	image.src = src;
+GameEngine.prototype.registerSound = function(sound) {
+	this.sounds[sound.name] = new Audio(sound.src);
+}
+
+GameEngine.prototype.registerImage = function(image) {
+	this.images[image.name] = new Image;
+	var thisImage = this.images[image.name];
+	thisImage.src = image.src;
 	return new Promise(function(resolve, reject){
-		image.onload = resolve;
-		image.onerror = reject;
+		thisImage.onload = resolve;
+		thisImage.onerror = reject;
 	});
 }
+
+GameEngine.prototype.start = function() {
+	this.timer = setInterval(this.onTimerTick.bind(this), 1000/this.fps);
+}
+
+
 
 GameEngine.prototype.drawScreen = function() {
 	this.context.fillStyle = "#FFFFFF";
@@ -47,10 +44,9 @@ GameEngine.prototype.drawScreen = function() {
 
 
 GameEngine.prototype.onTimerTick = function(){
-	this.drawScreen();
 	this.game.update();
+	this.drawScreen();
 }
-
 
 
 GameEngine.prototype.addListeners = function(){
