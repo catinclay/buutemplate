@@ -3,7 +3,6 @@ function GameEngine() {}
 GameEngine.prototype.init = function(game, imageManager, soundManager, fps) {
 	this.game = game;
 	this.theCanvas = document.getElementById("mainCanvas");
-	console.log(this.theCanvas.getBoundingClientRect());
 	if(this.checkMobile()){
 		this.theCanvas.width *=2;
 		this.theCanvas.height *=2;
