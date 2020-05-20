@@ -26,3 +26,7 @@ SimpleImageParticle.prototype.drawToContext = function(theContext) {
 						, -this.image.height/2);
   	theContext.restore();
 }
+
+SimpleImageParticle.prototype.shouldDestroy = function(theContext) {
+	return false;
+}

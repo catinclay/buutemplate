@@ -21,3 +21,7 @@ SimpleSquareParticle.prototype.drawToContext = function(theContext) {
 	theContext.fillStyle = this.color;
 	theContext.fillRect(this.x - this.radius, this.y - this.radius, 2*this.radius, 2*this.radius);
 }
+
+SimpleSquareParticle.prototype.shouldDestroy = function(theContext) {
+	return false;
+}

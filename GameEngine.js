@@ -29,9 +29,14 @@ GameEngine.prototype.drawScreen = function() {
 	this.context.fillStyle = "#FFFFFF";
 	this.context.fillRect(0, 0, this.theCanvas.width, this.theCanvas.height);
 	var drawables = this.game.getDrawables();
-	for (var i in drawables) {
-		var d = drawables[i];
-		d.drawToContext(this.context);
+	for (let i in drawables) {
+		for (let ii = drawables[i].length - 1; ii >= 0; --ii) {
+			let d = drawables[i][ii];
+			d.drawToContext(this.context);
+			if (drawables[i][ii].shouldDestroy()) {
+				drawables[i].splice(ii, 1);
+			}
+		}
 	}
 }
 
@@ -48,9 +53,13 @@ GameEngine.prototype.addListeners = function(){
 	window.addEventListener('mousemove', this.mouseMoveListener.bind(this), false);
 	window.addEventListener('touchmove', this.touchMoveListener.bind(this), false);
 	window.addEventListener('mouseup', this.mouseUpListener.bind(this), false);
+	window.addEventListener('contextmenu', this.mouseRightClickListenr.bind(this), false);
 	window.addEventListener('touchend', this.touchUpListener.bind(this), false);
 }
 
+GameEngine.prototype.mouseRightClickListenr = function(evt){
+	evt.preventDefault();
+}
 
 
 GameEngine.prototype.mouseDownListener = function(evt){
