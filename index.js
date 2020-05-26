@@ -7,7 +7,7 @@ gameEngine.init(game, imageManager, soundManager, 30);
 soundManager.registerSound({name:'failedSound', src:'sounds/failedSound.mp3'});
 
 var loadPromises = [
-	imageManager.registerImage({name:'flightImage', src:'image/flightIcon.png'})
+	imageManager.registerImage({name:'flightImage', path: 'image/', src:'flightIcon.png'}),
 ];
 
 Promise.all(loadPromises).then(gameEngine.start());

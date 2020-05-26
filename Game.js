@@ -1,13 +1,19 @@
 function Game(){}
 
-Game.prototype.init = function(canvasWidth, canvasHeight, imageManager, soundManager){
+Game.prototype.init = function(fp, canvasWidth, canvasHeight, imageManager, soundManager){
+	this.fp = fp;
 	this.canvasWidth = canvasWidth;
 	this.canvasHeight = canvasHeight;
+	this.imageManager = imageManager;
+	this.soundManager = soundManager;
+
+	this.initGame();
+}
+
+Game.prototype.initGame = function() {
 	this.drawables = [];
 	this.particles = [];
 	this.drawables.push(this.particles);
-	this.imageManager = imageManager;
-	this.soundManager = soundManager;
 }
 
 Game.prototype.update = function() {
