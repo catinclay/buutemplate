@@ -5,7 +5,7 @@ GameEngine.prototype.init = function(game, imageManager, soundManager, fps) {
 	this.theCanvas = document.getElementById("mainCanvas");
 	this.fp = 1;
 
-	if(this.checkMobile()){
+	if(this.checkMobile() || true){
 		this.fp = 2;
 		this.theCanvas.width *=2;
 		this.theCanvas.height *=2;
@@ -69,8 +69,8 @@ GameEngine.prototype.mouseRightClickListenr = function(evt){
 
 GameEngine.prototype.mouseDownListener = function(evt){
 	var bRect = this.theCanvas.getBoundingClientRect();
-	touchX = (evt.clientX - bRect.left)*(this.theCanvas.width/bRect.width);
-	touchY = (evt.clientY - bRect.top)*(this.theCanvas.height/bRect.height);
+	touchX = (evt.clientX - bRect.left)*(this.theCanvas.width/bRect.width) / this.fp;
+	touchY = (evt.clientY - bRect.top)*(this.theCanvas.height/bRect.height) / this.fp;
 	this.game.inputDownListener(touchX, touchY);
 }
 
@@ -78,15 +78,15 @@ GameEngine.prototype.touchDownListener = function(evt){
 	evt.preventDefault();	evt.stopPropagation();
 	var bRect = this.theCanvas.getBoundingClientRect();
 	var touches = evt.changedTouches;
-	touchX = (touches[0].pageX - bRect.left)*(this.theCanvas.width/bRect.width);
-	touchY = (touches[0].pageY - bRect.top)*(this.theCanvas.height/bRect.height);
+	touchX = (touches[0].pageX - bRect.left)*(this.theCanvas.width/bRect.width) / this.fp;
+	touchY = (touches[0].pageY - bRect.top)*(this.theCanvas.height/bRect.height) / this.fp;
 	this.game.inputDownListener(touchX, touchY);
 }
 
 GameEngine.prototype.mouseMoveListener = function(evt){
 	var bRect = this.theCanvas.getBoundingClientRect();
-	touchX = (evt.clientX - bRect.left)*(this.theCanvas.width/bRect.width);
-	touchY = (evt.clientY - bRect.top)*(this.theCanvas.height/bRect.height);
+	touchX = (evt.clientX - bRect.left)*(this.theCanvas.width/bRect.width) / this.fp;
+	touchY = (evt.clientY - bRect.top)*(this.theCanvas.height/bRect.height) / this.fp;
 	this.game.inputMoveListener(touchX, touchY);
 }
 
@@ -94,15 +94,15 @@ GameEngine.prototype.touchMoveListener = function(evt){
 	evt.preventDefault();	evt.stopPropagation();
 	var bRect = this.theCanvas.getBoundingClientRect();
 	var touches = evt.changedTouches;
-	touchX = (touches[0].pageX - bRect.left)*(this.theCanvas.width/bRect.width);
-	touchY = (touches[0].pageY - bRect.top)*(this.theCanvas.height/bRect.height);
+	touchX = (touches[0].pageX - bRect.left)*(this.theCanvas.width/bRect.width) / this.fp;
+	touchY = (touches[0].pageY - bRect.top)*(this.theCanvas.height/bRect.height) / this.fp;
 	this.game.inputMoveListener(touchX, touchY);
 }
 
 GameEngine.prototype.mouseUpListener = function(evt){
 	var bRect = this.theCanvas.getBoundingClientRect();
-	touchX = (evt.clientX - bRect.left)*(this.theCanvas.width/bRect.width);
-	touchY = (evt.clientY - bRect.top)*(this.theCanvas.height/bRect.height);
+	touchX = (evt.clientX - bRect.left)*(this.theCanvas.width/bRect.width) / this.fp;
+	touchY = (evt.clientY - bRect.top)*(this.theCanvas.height/bRect.height) / this.fp;
 	this.game.inputUpListener(touchX, touchY);
 }
 
@@ -110,7 +110,7 @@ GameEngine.prototype.touchUpListener = function(evt){
 	evt.preventDefault();	evt.stopPropagation();
 	var bRect = this.theCanvas.getBoundingClientRect();
 	var touches = evt.changedTouches;
-	touchX = (touches[0].pageX - bRect.left)*(this.theCanvas.width/bRect.width);
-	touchY = (touches[0].pageY - bRect.top)*(this.theCanvas.height/bRect.height);
+	touchX = (touches[0].pageX - bRect.left)*(this.theCanvas.width/bRect.width) / this.fp;
+	touchY = (touches[0].pageY - bRect.top)*(this.theCanvas.height/bRect.height) / this.fp;
 	this.game.inputUpListener(touchX, touchY);
 }

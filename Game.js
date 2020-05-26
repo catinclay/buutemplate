@@ -25,9 +25,9 @@ Game.prototype.getDrawables = function() {
 
 Game.prototype.inputDownListener = function(touchX, touchY) {
 	if(Math.random()>0.5){
-		this.particles.push(new SimpleSquareParticle(touchX, touchY));
+		this.particles.push(new SimpleSquareParticle(this.fp, touchX, touchY));
 	}else{
-		this.particles.push(new SimpleImageParticle(touchX, touchY, imageManager.get("flightImage")));
+		this.particles.push(new SimpleImageParticle(this.fp, touchX, touchY, imageManager.get("flightImage")));
 	}
 	this.soundManager.play("failedSound");
 }
