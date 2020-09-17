@@ -16,7 +16,6 @@ GameEngine.prototype.init = function(game, imageManager, soundManager, fps) {
 	this.addListeners();
 	this.fps = fps;
 	this.sounds = {};
-	this.game.init(this.fp, this.theCanvas.width, this.theCanvas.height, imageManager, soundManager);
 	this.lastUpdate = Date.now();
 }
 
@@ -27,6 +26,7 @@ GameEngine.prototype.checkMobile = function() {
 }
 
 GameEngine.prototype.start = function() {
+	this.game.init(this.fp, this.theCanvas.width, this.theCanvas.height, imageManager, soundManager);
 	this.timer = setInterval(this.onTimerTick.bind(this), 1000/this.fps);
 }
 
